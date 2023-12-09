@@ -29,16 +29,27 @@ public class Crossing {
     }
 
     public static boolean CrossingVerifier(int[] stones) {
-        int jumpSize = stones[0];
+        int jumpSize = 1;
     
-        for (int i = 0; i < stones.length; i++) {
-            if (jumpSize >= stones[i]) {
-                jumpSize = stones[i] + jumpSize;
+        for (int i = 1; i < stones.length; ) {
+            int nextStone = stones[i - 1] + jumpSize;
+            
+            if (i == stones.length - 1 && stones[i] == nextStone) {
+                return true;
             }
-            else{
+            
+            while (i < stones.length && stones[i] < nextStone) {
+                i++;
+            }
+            
+            if (i < stones.length && stones[i] != nextStone) {
                 return false;
             }
+            
+            jumpSize++;
         }
+        
         return true;
     }
+    
 }
